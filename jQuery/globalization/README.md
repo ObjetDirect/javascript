@@ -5,18 +5,18 @@ This attribute can contains one or many properties, and inject these into the co
 
 Examples:
 <pre>
-  <!-- Inject into the content -->
-  <div data-translate="aProperty">A default text</div>
+  &lt;!-- Inject into the content -->
+  &lt;div data-translate="aProperty"&gt;A default text&lt;/div&gt;
 </pre>
 
 <pre>
-  <!-- Inject into the attribute -->
-  <div data-translate="title:aProperty" title="A default title">A text</div>
+  &lt;!-- Inject into the attribute -->
+  &lt;div data-translate="title:aProperty" title="A default title"&gt;A text&lt;/div&gt;
 </pre>
 
 <pre>
-  <!-- Inject into the attribute and the content -->
-  <div data-translate="title:aProperty;anotherProperty" title="A default title">A default text</div>
+  &lt;!-- Inject into the attribute and the content -->
+  &lt;div data-translate="title:aProperty;anotherProperty" title="A default title"&gt;A default text&lt;/div&gt;
 </pre>
 
 You can too retrieve the property manually:
