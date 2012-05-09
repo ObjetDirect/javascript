@@ -1,7 +1,7 @@
 ﻿/**
  * Plugin to put some globalizations
  */
-windows.jQuery && (function($){
+window.jQuery && (function($){
 	if($.translate){
 		// Already loaded ?
 		return;
@@ -12,9 +12,9 @@ windows.jQuery && (function($){
 	 */
 	$.translate = {
 		defaultLanguage: navigator.language,
-		pathLanguage: function(language){ return language + ".js" },
+		pathLanguage: function(language){ return language + ".js"; },
 		properties: {}
-	});
+	};
 	
 	/**
 	 * Override the HTML method to translate when we need
