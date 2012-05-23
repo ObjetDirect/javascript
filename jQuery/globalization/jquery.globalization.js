@@ -12,21 +12,15 @@ window.jQuery && (function($){
 	 */
 	$.translate = {
 		defaultLanguage: navigator.language,
-		pathLanguage: function(language){ return language + ".js"; },
+		pathLanguage: function(language){ 
+		    return language + ".js"; 
+		},
+		loadLanguage: function(){
+		    $("head:first").append($("<script />",  { "src": $.translate.pathLanguage($.translate.defaultLanguage) }));
+		},
+		autoLoad: true,
 		properties: {}
 	};
-	
-	/**
-	 * Override the HTML method to translate when we need
-	 */
-	 var originalHtmlMethod = $.fn.html;
-	 
-	 $.fn.html = function (htmlContent){
-		var toReturn = originalHtmlMethod(htmlContent);
-		this.translate();
-		this.find("[data-translate]").each(function(index, elt){ $(elt).translate(); });
-		return toReturn;
-	 }
 	
 	/**
 	 * Try to translate the inner text, or the attribute if needed
@@ -64,7 +58,7 @@ window.jQuery && (function($){
 	    }
 		
 		// Now, we try to load the default globalization language. We will check first which one we will use.
-        $("head:first").append($("<script />",  { "src": $.translate.pathLanguage($.translate.defaultLanguage) }));
+        $.translate.autoLoad && $.translate.loadLanguage();
 	 
 		// We try to translate the elements
         $("[data-translate]").each(function (index, elt) { $(elt).translate(); });
