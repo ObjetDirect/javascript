@@ -1,0 +1,225 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>Form</title>
+		<link href="../css/bootstrap-default.css" rel="stylesheet">
+		<style>
+			body {
+				padding-top: 60px;
+			}
+		</style>
+		<link href="../bootstrap/docs/assets/css/bootstrap-responsive.css" rel="stylesheet">
+		<link href="bootstrap-form.css" rel="stylesheet">
+		<script src="../bootstrap/docs/assets/js/jquery.js"> </script>
+		<script src="../bootstrap/docs/assets/js/bootstrap-tooltip.js"> </script>
+		<script src="bootstrap-form.js"> </script>
+		<script type="text/javascript">
+			$(document).ready(function() {
+				$('form').form();
+			});
+		</script>
+	</head>
+	<body>
+	    <div class="navbar navbar-fixed-top">
+			<div class="navbar-inner">
+				<div class="container">
+					<a class="brand" href="">
+						Form
+					</a>
+				</div>
+			</div>
+		</div>
+		<div class="container">
+			<div class="span12">
+				<form class="form form-horizontal" action="./">
+					<fieldset class="well">
+						<h3>Connection informations</h3>
+						<br/>
+						<!-- Input type="text" -->
+						<div class="control-group">
+							<label class="control-label" for="inputLogin">Login</label>
+							<div class="controls">
+								<input type="text" id="inputLogin" class="input-medium" required="required"
+									pattern="[A-Za-z0-9]*" data-error="Please give a correct login.">
+							</div>
+						</div>
+						<!-- Input type="password" -->
+						<div class="control-group">
+							<label class="control-label" for="inputPassword">Password</label>
+							<div class="controls">
+								<input type="password" id="inputPassword" class="input-medium" required="required"
+									data-error="Please give a correct password.">
+							</div>
+						</div>
+						<!-- Input type="email" -->
+						<div class="control-group">
+							<label class="control-label" for="inputEmail">E-mail address</label>
+							<div class="controls">
+								<input type="email" id="inputEmail" class="input-medium" required="required"
+									data-error="Please give a correct e-mail address.">
+							</div>
+						</div>
+					</fieldset>
+					<fieldset class="well">
+						<h3>General informations</h3>
+						<br/>
+						<!-- Input type="radio" -->
+						<div class="control-group">
+							<label class="control-label" for="inputGender">Gender</label>
+							<div class="controls radio input-mini">
+								<input type="radio" value="Man" id="man" name="gender" required="required"
+									data-error="Please check a gender.">
+								<label for="man">Man</label>
+							</div>
+							<div class="controls radio input-mini">
+								<input type="radio" value="Woman" id="woman" name="gender">
+								<label for="woman">Woman</label>
+							</div>
+						</div>
+						<!-- Input type="date" -->
+						<div class="control-group">
+							<label class="control-label" for="inputAge">Birth date</label>
+							<div class="controls">
+								<input type="date" id="inputAge" class="input-medium" required="required"
+									data-error="Please give a correct birth date.">
+							</div>
+						</div>
+						<!-- TextArea -->
+						<div class="control-group">
+							<label class="control-label" for="inputLocation">Locality<br/>ZIP<br/>City</label>
+							<div class="controls">
+								<textarea id="inputLocation" class="input-medium" rows="3"></textarea>
+							</div>
+						</div>
+						<!-- Input type="tel" -->
+						<div class="control-group">
+							<label class="control-label" for="inputTel">Phone</label>
+							<div class="controls">
+								<input type="tel" id="inputTel" class="input-medium" pattern="[0-9]{10}"
+									data-error="Please give a correct phone number.">
+							</div>
+						</div>
+						<!-- Input type="url" -->
+						<div class="control-group">
+							<label class="control-label" for="inputWeb">Website</label>
+							<div class="controls">
+								<input type="url" id="inputWeb" class="input-medium" placeholder="http://"
+									data-error="Please give a correct website url.">
+							</div>
+						</div>
+						<!-- Input type="file" -->
+						<div class="control-group">
+							<label class="control-label" for="inputImage">Personal image</label>
+							<div class="controls">
+								<input type="file" id="inputImage" class="input-xlarge" accept="image/jpeg, image/png"
+								required="required"
+									data-error="Please give an image with jpg or png format.">
+							</div>
+						</div>
+					</fieldset>
+					<fieldset class="well">
+						<h3>Optional informations</h3>
+						<br/>
+						<!-- Input type="number" -->
+						<div class="control-group">
+							<label class="control-label" for="inputComputer">Computers number</label>
+							<div class="controls">
+								<input type="number" value="0" min="0" max="10" id="inputComputer" class="input-medium"
+									data-error="Please give a correct computers number.">
+							</div>
+						</div>
+						<!-- Input type="search" -->
+						<div class="control-group">
+							<label class="control-label" for="inputSearch">Favorite animal</label>
+							<div class="controls">
+								<input type="search" id="inputSearch" list="inputSearchList" class="input-medium">
+								<datalist id="inputSearchList">
+									<option value="Alligator">
+									<option value="Bear">
+									<option value="Cat">
+									<option value="Dolphin">
+									<option value="Elephant">
+									<option value="Fawn">
+									<option value="Gazelle">
+								</datalist>
+							</div>
+						</div>
+						<!-- Select multiple -->
+						<div class="control-group">
+							<label class="control-label" for="inputFruit">Favorite fruit<br/>(between 2 and 4)</label>
+							<div class="controls">
+								<select id="inputFruit" class="input-medium" multiple="multiple" data-min="2" data-max="4"
+									data-error="Please choose between two and four fruits.">
+									<option value="apple">Apple</option>
+									<option value="banana">Banana</option>
+									<option value="cherry">Cherry</option>
+									<option value="dewberry">Dewberry</option>
+									<option value="elderberry">Elderberry</option>
+									<option value="fig">Fig</option>
+									<option value="grape">Grape</option>
+								</select>
+							</div>
+						</div>
+						<!-- Input type="checkbox" -->
+						<div class="control-group">
+							<label class="control-label" for="inputBrowser">Favorite browser<br/>(at least 1)</label>
+							<div class="controls checkbox input-mini">
+								<input type="checkbox" value="Chrome" id="chrome" name="browser[]" data-min="1"
+									data-error="Please check at least one browser.">
+								<label for="chrome">Chrome</label>
+							</div>
+							<div class="controls checkbox input-mini">
+								<input type="checkbox" value="Firefox" id="firefox" name="browser[]">
+								<label for="firefox">Firefox</label>
+							</div>
+							<div class="controls checkbox input-mini">
+								<input type="checkbox" value="IExplorer" id="iexplorer" name="browser[]">
+								<label for="iexplorer">IExplorer</label>
+							</div>
+							<div class="controls checkbox input-mini">
+								<input type="checkbox" value="Opera" id="opera" name="browser[]">
+								<label for="opera">Opera</label>
+							</div>
+							<div class="controls checkbox input-mini">
+								<input type="checkbox" value="Safari" id="safari" name="browser[]">
+								<label for="safari">Safari</label>
+							</div>
+						</div>
+						<!-- Input type="color" -->
+						<div class="control-group">
+							<label class="control-label" for="inputColor">Favorite color</label>
+							<div class="controls">
+								<input type="color" id="inputColor" class="input-medium">
+							</div>
+						</div>
+						<!-- Select -->
+						<div class="control-group">
+							<label class="control-label" for="inputOS">Favorite OS</label>
+							<div class="controls">
+								<select id="inputOS" class="input-medium">
+									<option>Nothing</option>
+									<option>Linux</option>
+									<option>Mac</option>
+									<option>Windows</option>
+								</select>
+							</div>
+						</div>
+						<!-- Input type="range" -->
+						<div class="control-group">
+							<label class="control-label" for="inputNote">Note</br>(on 20)</label>
+							<div class="controls">
+								<input type="range" max="20" id="inputNote" class="input-medium">
+							</div>
+						</div>
+					</fieldset>
+					<!-- Input type="button" -->
+					<div class="form-actions">
+						<button type="submit" class="btn btn-primary">Submit</button>
+						<input type="reset" class="btn" value="Cancel">
+					</div>
+				</form>
+			</div>
+		</div>
+	</body>
+</html>
