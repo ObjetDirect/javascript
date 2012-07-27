@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>Follow Button</title>
+		<script src="../bootstrap/docs/assets/js/jquery.js"> </script>
+		<script src="./bootstrap-follow.js"> </script>
+		<script type="text/javascript">
+			$(document).ready(function() {
+				$('.followTwitter').follow();
+				$('.followObjetDirect').follow({
+					login : 'objetdirect',
+					largeButton : true,
+					language : 'fr'
+				});
+			});
+		</script>
+	</head>
+	<body>
+		<div class="followTwitter"> </div>
+		<div class="followObjetDirect"> </div>
+	</body>
+</html>
