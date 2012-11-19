@@ -117,7 +117,13 @@ $("#wizard").wizard({
 		
 		this.$base.on("click", "> a", function(event){
 			event.preventDefault();
-			$(this).data("slide") == "next" ? self.next() : self.prev();
+			
+			var preventEventPropagation = $(this).data("slide") == "next" ? self.next() : self.prev();
+			
+			if(preventEventPropagation){
+				event.stopPropagation();
+				event.stopImmediatePropagation();
+			}
 		});
 	};
 	
@@ -126,6 +132,7 @@ $("#wizard").wizard({
 			this.$base.carousel(index);
 			this.idx = index;
 			this.update();
+			
 			$.isFunction(this.options.changeStep) && this.options.changeStep(this.idx);
 		}
 		
@@ -159,8 +166,11 @@ $("#wizard").wizard({
 			this.idx--;
 			this.update();
 			$.isFunction(this.options.changeStep) && this.options.changeStep(this.idx);
+			
+			return false;
 		}
 		
+		return true;
 	};
 	
 	Wizard.prototype.next = function() {
@@ -169,7 +179,11 @@ $("#wizard").wizard({
 			this.idx++;
 			this.update();
 			$.isFunction(this.options.changeStep) && this.options.changeStep(this.idx);
+			
+			return false;
 		}
+		
+		return true;
 	};
 	
 	Wizard.prototype.option = function(options){
