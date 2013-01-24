@@ -46,7 +46,7 @@
 			this.$previous = $("<li><a href='#' data-index='previous'>" + this.options.previousText + "</a></li>");
 		}
 		
-		if(this.options.previousPlacement == "detached"){
+		if(this.options.nextPlacement == "detached"){
 			this.$next = $("<li class='next'><a href='#' data-index='next'>" + this.options.detachedNextText + "</a></li>");
 			
 		} else {
