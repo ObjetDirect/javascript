@@ -128,7 +128,7 @@ $("#wizard").wizard({
 	};
 	
 	Wizard.prototype.index = function(index){
-		if(index != null && index >= 0 && index <= this.maxIdx){
+		if(index != null && index >= 0 && index <= this.maxIdx && $.isFunction(this.options.changeStep) && this.options.changeStep(index)){
 			this.$base.carousel(index);
 			this.idx = index;
 			this.update();
