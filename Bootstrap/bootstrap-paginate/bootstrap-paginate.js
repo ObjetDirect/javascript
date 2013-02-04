@@ -84,6 +84,18 @@
 		this.$element.append(this.$ul);
 	};
 	
+	Paginate.prototype.changePage = function(page, triggerEvent) {
+		if(page >= 0){
+			this.index = page;
+			this.update();
+			
+			if(triggerEvent == null || triggerEvent == true){
+				$.isFunction(this.options.pageChange) && this.options.pageChange(this.index);
+				this.$element.trigger("paginate", [this.index]);
+			}
+		}
+	};
+	
 	Paginate.prototype.insertIndexes = function(){
 		var length = Math.min(this.options.pages, this.indexMax)
 		
