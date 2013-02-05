@@ -95,12 +95,12 @@ $("#wizard").wizard({
 		this.$items.wrapAll("<div class='carousel-inner'></div>");
 		this.$base.append("<br />");
 		
-		this.$previous = $("<a class='btn btn-inverse' data-slide='prev'><i class='icon-chevron-left icon-white'></i> " + this.options.previousText + "</a>");
+		this.$previous = $("<a class='btn btn-inverse' data-index='prev'><i class='icon-chevron-left icon-white'></i> " + this.options.previousText + "</a>");
 		this.$previous.attr("href", "#" + this.$base.attr("id"));
 		this.$previous.css("visibility", "hidden");
 		this.$base.append(this.$previous);
 		
-		this.$next = $("<a class='btn btn-inverse' data-slide='next'><i class='icon-chevron-right icon-white'></i> " + this.options.nextText + "</a>");
+		this.$next = $("<a class='btn btn-inverse' data-index='next'><i class='icon-chevron-right icon-white'></i> " + this.options.nextText + "</a>");
 		this.$next.attr("href", "#" + this.$base.attr("id"));
 		this.$base.append(this.$next);
 		
@@ -117,13 +117,7 @@ $("#wizard").wizard({
 		
 		this.$base.on("click", "> a", function(event){
 			event.preventDefault();
-			
-			var preventEventPropagation = $(this).data("slide") == "next" ? self.next() : self.prev();
-			
-			if(preventEventPropagation){
-				event.stopPropagation();
-				event.stopImmediatePropagation();
-			}
+			$(this).data("index") == "next" ? self.next() : self.prev();
 		});
 	};
 	
@@ -164,11 +158,7 @@ $("#wizard").wizard({
 
 	Wizard.prototype.prev = function() {
 		if(this.idx > 0){
-			this.$base.carousel("prev");
-			this.idx--;
-			this.update();
-			$.isFunction(this.options.changeStep) && this.options.changeStep(this.idx);
-			
+			this.index(this.idx - 1);
 			return false;
 		}
 		
@@ -177,11 +167,7 @@ $("#wizard").wizard({
 	
 	Wizard.prototype.next = function() {
 		if(this.idx <= this.maxIdx && this.options.validNextStep(this.idx)){
-			this.$base.carousel("next");
-			this.idx++;
-			this.update();
-			$.isFunction(this.options.changeStep) && this.options.changeStep(this.idx);
-			
+			this.index(this.idx+ 1);
 			return false;
 		}
 		
