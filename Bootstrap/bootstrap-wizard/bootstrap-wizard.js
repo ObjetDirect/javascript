@@ -119,11 +119,16 @@ $("#wizard").wizard({
 			event.preventDefault();
 			$(this).data("index") == "next" ? self.next() : self.prev();
 		});
+		
+		this.$base.on("slid", function(event){
+			window.setTimeout(function(){ self.$element.removeClass("animated"); }, 50);
+		});
 	};
 	
 	Wizard.prototype.index = function(index){
 		if(index != null && index >= 0 && index <= this.maxIdx){
 			if(!$.isFunction(this.options.changeStep) || this.options.validNextStep(index)){
+				this.$element.addClass("animated");
 				this.$base.carousel(index);
 				this.idx = index;
 				this.update();

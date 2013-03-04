@@ -4,6 +4,14 @@
 	background-color: white;
 }
 
+.wizard .carousel-inner {
+	overflow: visible;	
+}
+
+.wizard.animated .carousel-inner {
+	overflow: hidden;	
+}
+
 .wizard-header a {
     padding: 10px 12px 10px;
     margin-right: 5px;
