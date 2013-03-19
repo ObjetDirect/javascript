@@ -80,13 +80,25 @@ $("#wizard").wizard({
 		// Wizard header
 		this.$wizardHeader = $("<div class='wizard-header'></div>");
 		this.$items.each(function(index, item){
-			var $item = $(item), active = index == 0;
-			
-			$item.addClass("item");
-			active && $item.addClass("active");
-			
-			self.$wizardHeader.append("<a href='#'" + (active ? " class='active'" : "") + " data-index='" + index + "'><span class='badge" + (active ? "" : " badge-inverse") + "'>" + (index + 1) + "</span> " + $item.data("title") + "</a>");
-		});
+            var $item = $(item), active = index == 0, classToUse = "";
+            
+            $item.addClass("item");
+            active && $item.addClass("active");
+            
+            if(active){
+                classToUse += "active ";
+            }
+            
+            if(index == 0){
+                classToUse += "first ";
+            }
+            
+            if(index == self.maxIdx){
+                classToUse += "last ";
+            }
+            
+            self.$wizardHeader.append("<a href='#' class='" + classToUse + "' data-index='" + index + "'><span class='badge" + (active ? "" : " badge-inverse") + "'>" + (index + 1) + "</span> " + $item.data("title") + "</a>");
+        });
 		
 		this.$base.before(this.$wizardHeader);
 		this.$base.before("<br />");

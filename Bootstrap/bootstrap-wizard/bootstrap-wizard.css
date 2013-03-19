@@ -45,8 +45,8 @@
     z-index: 2;
 }
 
-.wizard-header a:first-child:before,
-.wizard-header a:last-child:after {
+.wizard-header a.first:before,
+.wizard-header a.last:after {
     border: none;
 }
 
