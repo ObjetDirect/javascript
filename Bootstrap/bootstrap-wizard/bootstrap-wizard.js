@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  * Wizard plugin for Boostrap
  * Require the carousel plugin
  * 
@@ -251,9 +251,9 @@ $("#wizard").wizard({
 	};
 
 	$.fn.wizard.defaults = {
-		nextText: "Suivant",
-		previousText: "Précédent",
-		finishText: "Terminer",
+		nextText: "Next",
+		previousText: "Previous",
+		finishText: "Finish",
 		validNextStep: function(index) { return true; },
 		changeStep: function(index) {},
 		finish: function(event) {}
