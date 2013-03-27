@@ -80,25 +80,25 @@ $("#wizard").wizard({
 		// Wizard header
 		this.$wizardHeader = $("<div class='wizard-header'></div>");
 		this.$items.each(function(index, item){
-            var $item = $(item), active = index == 0, classToUse = "";
-            
-            $item.addClass("item");
-            active && $item.addClass("active");
-            
-            if(active){
-                classToUse += "active ";
-            }
-            
-            if(index == 0){
+			var $item = $(item), active = index == 0, classToUse = "";
+			
+			$item.addClass("item");
+			active && $item.addClass("active");
+			
+			if(active){
+			    classToUse += "active ";
+			}
+			
+			if(index == 0){
                 classToUse += "first ";
             }
-            
-            if(index == self.maxIdx){
+			
+			if(index == self.maxIdx){
                 classToUse += "last ";
             }
-            
-            self.$wizardHeader.append("<a href='#' class='" + classToUse + "' data-index='" + index + "'><span class='badge" + (active ? "" : " badge-inverse") + "'>" + (index + 1) + "</span> " + $item.data("title") + "</a>");
-        });
+			
+			self.$wizardHeader.append("<a href='#' class='" + classToUse + "' data-index='" + index + "'><span class='badge" + (active ? "" : " badge-inverse") + "'>" + (index + 1) + "</span> " + $item.data("title") + "</a>");
+		});
 		
 		this.$base.before(this.$wizardHeader);
 		this.$base.before("<br />");
@@ -112,14 +112,19 @@ $("#wizard").wizard({
 		this.$previous.css("visibility", "hidden");
 		this.$base.append(this.$previous);
 		
-		this.$next = $("<a class='btn btn-inverse' data-index='next'><i class='icon-chevron-right icon-white'></i> " + this.options.nextText + "</a>");
+		this.$next = $("<a class='btn btn-inverse' data-index='next' style='float:right'>" + this.options.nextText + "<i class='icon-chevron-right icon-white'></i></a>");
 		this.$next.attr("href", "#" + this.$base.attr("id"));
 		this.$base.append(this.$next);
 		
-		this.$finish = $("<button type='submit' class='btn btn-primary'>" + this.options.finishText + "</button>");
+		this.$finish = $("<button type='submit' class='btn btn-primary' style='float:right'>" + this.options.finishText + "</button>");
 		this.$finish.css("visibility", "hidden");
-		this.$finish.on("click", this.options.finish);
+		this.$finish.on("click", function(event){
+		    if(self.options.validNextStep.call(self, self.idx)){
+		        $.isFunction(self.options.finish) && self.options.finish.call(self, event);
+		    }
+		});
 		this.$base.append(this.$finish);
+		this.$base.append("<div style='clear:both'/>");
 		
 		// Listeners
 		this.$wizardHeader.on("click", "> a", function(event){
@@ -139,13 +144,23 @@ $("#wizard").wizard({
 	
 	Wizard.prototype.index = function(index){
 		if(index != null && index >= 0 && index <= this.maxIdx){
-			if(!$.isFunction(this.options.changeStep) || this.options.validNextStep(index)){
+		    var i, isValid = true;
+		    if(this.idx < index){
+		        for(i = this.idx; i < index; ++i){
+		            if(!this.options.validNextStep.call(this, i)){
+		                isValid = false;
+		                break;
+		            }
+		        }
+		    }
+		    
+			if(isValid){
 				this.$element.addClass("animated");
 				this.$base.carousel(index);
 				this.idx = index;
 				this.update();
 				
-				$.isFunction(this.options.changeStep) && this.options.changeStep(this.idx);
+				$.isFunction(this.options.changeStep) && this.options.changeStep.call(this, this.idx);
 			}
 		}
 		
@@ -183,7 +198,7 @@ $("#wizard").wizard({
 	};
 	
 	Wizard.prototype.next = function() {
-		if(this.idx <= this.maxIdx && this.options.validNextStep(this.idx)){
+		if(this.idx <= this.maxIdx){
 			this.index(this.idx+ 1);
 			return false;
 		}
@@ -226,7 +241,7 @@ $("#wizard").wizard({
 			var $this = $(this), data = $this.data("wizard"), options = typeof opts == "object" && opts;
 			
 			if(data){
-				data.option(options)
+				data.option(options);
 				
 			} else {
 				$this.data("wizard", new $.fn.wizard.Constructor(this, options));
@@ -236,9 +251,9 @@ $("#wizard").wizard({
 	};
 
 	$.fn.wizard.defaults = {
-		nextText: "Next",
-		previousText: "Previous",
-		finishText: "Finish",
+		nextText: "Suivant",
+		previousText: "Précédent",
+		finishText: "Terminer",
 		validNextStep: function(index) { return true; },
 		changeStep: function(index) {},
 		finish: function(event) {}
