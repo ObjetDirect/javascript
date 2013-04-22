@@ -145,23 +145,48 @@ $("#wizard").wizard({
 	Wizard.prototype.index = function(index){
 		if(index != null && index >= 0 && index <= this.maxIdx){
 		    var i, isValid = true;
-		    if(this.idx < index){
-		        for(i = this.idx; i < index; ++i){
-		            if(!this.options.validNextStep.call(this, i)){
-		                isValid = false;
-		                break;
-		            }
-		        }
-		    }
-		    
-			if(isValid){
-				this.$element.addClass("animated");
-				this.$base.carousel(index);
-				this.idx = index;
-				this.update();
-				
-				$.isFunction(this.options.changeStep) && this.options.changeStep.call(this, this.idx);
-			}
+
+            if(this.idx < index){
+                if(this.options.displayOnJump){
+                    for(i = this.idx; i <= index; ++i){
+                        if(this.options.validNextStep.call(this, i)){
+                            this.$element.addClass("animated");
+                            this.$base.carousel(i);
+                            this.idx = i;
+                            this.update();
+
+                            $.isFunction(this.options.changeStep) && this.options.changeStep.call(this, this.idx);
+
+                        } else if($.isFunction(this.options.invalidateNextStep)){
+                            isValid = false;
+                            this.options.invalidateNextStep.call(this, i);
+                        }
+                    }
+
+                } else {
+                    for(i = this.idx; i < index; ++i){
+                        if(!this.options.validNextStep.call(this, i)){
+                            isValid = false;
+
+                            if($.isFunction(this.options.invalidateNextStep)){
+                                this.options.invalidateNextStep.call(this, i);
+                            }
+
+                            break;
+                        }
+                    }
+                }
+            }
+
+            if(isValid){
+                this.$element.addClass("animated");
+                this.$base.carousel(index);
+                this.idx = index;
+                this.update();
+
+                $.isFunction(this.options.changeStep) && this.options.changeStep.call(this, this.idx);
+
+            }
 		}
 		
 		return this.idx;
@@ -183,9 +208,11 @@ $("#wizard").wizard({
 			this.$next.css("visibility", "visible");
 			this.$finish.css("visibility", "hidden");
 		}
-		
+
+        $(".active span.badge", this.$wizardHeader).addClass("badge-inverse");
 		$(".active", this.$wizardHeader).removeClass("active");
 		$("a:eq(" + this.idx + ")", this.$wizardHeader).addClass("active");
+        $(".active span.badge", this.$wizardHeader).removeClass("badge-inverse");
 	};
 
 	Wizard.prototype.prev = function() {
@@ -254,7 +281,9 @@ $("#wizard").wizard({
 		nextText: "Next",
 		previousText: "Previous",
 		finishText: "Finish",
+        displayOnJump: false,
 		validNextStep: function(index) { return true; },
+        invalidateNextStep: function(index) {},
 		changeStep: function(index) {},
 		finish: function(event) {}
 	};

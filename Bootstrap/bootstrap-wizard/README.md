@@ -69,7 +69,9 @@ $.fn.wizard.defaults = {
 	nextText: &quot;Next&quot;,
 	previousText: &quot;Previous&quot;,
 	finishText: &quot;Finish&quot;,
+	displayOnJump: false,
 	validNextStep: function(index) { return true; },
+	invalidateNextStep: function(index) {},
 	changeStep: function(index) {},
 	finish: function(event) {}
 };
