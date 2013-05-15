@@ -1,4 +1,4 @@
-/* jshint jQuery: false, define: false */
+﻿/* jshint jQuery: false, define: false */
 
 /**
  * @file This jQuery plugin add a new method to serialize a form as a JSON object
